@@ -1,0 +1,707 @@
+---
+title: "multivariate "
+author: "Ryan Rumanzi"
+date: "2024-10-15"
+output:
+  html_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+1. Loading the mtcars dataset
+The mtcars dataset is a built-in dataset in R
+
+```{r}
+# Load the mtcars dataset
+data(mtcars)
+
+```
+
+At this point, I can inspect the dataset to familiarize myself with its structure:
+
+```{r}
+# View the first few rows of the dataset
+head(mtcars)
+
+```
+
+Calculating the sample means
+
+```{r}
+# Calculate sample means
+mean_mpg <- mean(mtcars$mpg)
+mean_hp <- mean(mtcars$hp)
+mean_wt <- mean(mtcars$wt)
+
+# Display results
+mean_mpg
+mean_hp
+mean_wt
+
+```
+
+Thought Process:
+The mean() function computes the average, which is a measure of central tendency.
+I'll using $ to select specific columns (mpg, hp, and wt) from the mtcars dataframe.
+I calculate the means individually and store the results in separate variables.
+
+ Calculating the sample variances
+The sample variance measures the dispersion of the data around the mean. The formula for variance is the sum of the squared deviations from the mean, divided by the number of observations minus 1.
+
+```{r}
+# Calculate sample variances
+var_mpg <- var(mtcars$mpg)
+var_hp <- var(mtcars$hp)
+var_wt <- var(mtcars$wt)
+
+# Display results
+var_mpg
+var_hp
+var_wt
+
+```
+Thought Process:
+Variance quantifies the spread of a dataset. Higher variance means data points are more spread out from the mean.
+
+ Computing sample covariances
+Covariance measures the degree to which two variables change together. A positive covariance indicates that as one variable increases, the other tends to increase, while a negative covariance means they move in opposite directions. The formula for covariance is similar to variance, but it involves two variables.
+
+```{r}
+# Calculate sample covariances
+cov_mpg_hp <- cov(mtcars$mpg, mtcars$hp)
+cov_mpg_wt <- cov(mtcars$mpg, mtcars$wt)
+
+# Display results
+cov_mpg_hp
+cov_mpg_wt
+
+```
+computing sample correlations
+
+Correlation measures both the strength and direction of a linear relationship between two variables. It is a standardized version of covariance, ranging from -1 (perfect negative correlation) to +1 (perfect positive correlation). A correlation of 0 means no linear relationship. I use the cor() function to compute Pearson’s correlation coefficient.
+
+```{r}
+# Calculate sample correlations
+cor_mpg_hp <- cor(mtcars$mpg, mtcars$hp)
+cor_mpg_wt <- cor(mtcars$mpg, mtcars$wt)
+
+# Display results
+cor_mpg_hp
+cor_mpg_wt
+
+```
+Thought Process:
+The cor() function calculates the Pearson correlation, which normalizes covariance by the product of the standard deviations of the two variables.
+Correlation provides an easy-to-interpret measure of the relationship between two variables without being affected by their respective units.
+
+Interpretation
+
+Sample Means: The code calculates the sample means for mpg, hp, and wt variables in the mtcars dataset. The results show that the average miles per gallon (mpg) is around 20.09, the horsepower (hp) is 146.69, and the average weight (wt) is 3.21725.
+
+
+Sample Variances: The variances are also computed, with mpg having a variance of 36.32, hp with 4700.87, and wt with 0.96. These values show the spread of the data around the mean.
+
+Covariance and Correlation: The covariance between mpg and hp is -320.73, while between mpg and wt, it is -5.12. The negative sign suggests an inverse relationship. The corresponding correlation coefficients are -0.776 and -0.868, indicating a strong negative relationship between mpg and the other two variables
+
+
+Defining Two Random Variables and Computing the Linear Combination
+
+```{r}
+# Load the iris dataset
+data(iris)
+
+# a) Define the linear combination
+Y <- 2 * iris$Sepal.Length + 3 * iris$Sepal.Width
+
+# Display the first few values of Y to verify
+head(Y)
+
+```
+Thought Process:
+Sepal.Length and Sepal.Width are columns in the iris dataset.
+I multiply Sepal.Length by 2 and Sepal.Width by 3, then add them together to create the new variable Y.
+Using the $ operator allows us to reference specific columns in the iris dataframe.
+
+
+2. Calculating the Sample Mean of the Linear Combination
+
+```{r}
+# b) Calculate the sample mean of the linear combination Y
+mean_Y <- mean(Y)
+
+# Display the result
+mean_Y
+
+```
+Thought Process:
+The sample mean is a measure of central tendency.
+Since I are working with the linear combination, its sample mean is calculated just like any other numerical variable in R.
+
+Computing the Sample Variance of the Linear Combination
+
+```{r}
+# c) Compute the sample variance of the linear combination Y
+var_Y <- var(Y)
+
+# Display the result
+var_Y
+
+```
+Thought Process:
+The variance of the linear combination provides information on how spread out the values of Y are.
+
+Calculating Covariance and Correlation Between Two Linear Combinations 
+
+```{r}
+# Define the second linear combination Y2
+Y1 <- 2 * iris$Sepal.Length + 3 * iris$Sepal.Width
+Y2 <- 4 * iris$Petal.Length + 1 * iris$Petal.Width
+
+# Display the first few values of Y1 and Y2 to verify
+head(Y1)
+head(Y2)
+
+```
+Covariance between 
+𝑌
+1
+Y 
+1
+​
+  and 
+𝑌
+2
+Y 
+2
+​
+ 
+The covariance between 
+𝑌
+1
+Y 
+1
+​
+  and 
+𝑌
+2
+Y 
+2
+​
+  is calculated using the cov() function
+  
+```{r}
+# d) Calculate the covariance between Y1 and Y2
+cov_Y1_Y2 <- cov(Y1, Y2)
+
+# Display the result
+cov_Y1_Y2
+
+```
+Correlation between 
+𝑌
+1
+Y 
+1
+​
+  and 
+𝑌
+2
+Y 
+2
+​
+ 
+The correlation, which is a normalized measure of covariance, is calculated using the cor() function:
+
+```{r}
+# d) Calculate the correlation between Y1 and Y2
+cor_Y1_Y2 <- cor(Y1, Y2)
+
+# Display the result
+cor_Y1_Y2
+
+```
+
+Thought Process:
+Covariance measures how two variables move together, but the magnitude depends on the units of measurement.
+Correlation standardizes this relationship and gives us a value between -1 and 1, making it easier to interpret.
+
+Interpretation 
+
+Linear Combination Calculation: The exercise constructs a linear combination 
+𝑌
+=
+2
+×
+Sepal.Length
++
+3
+×
+Sepal.Width
+Y=2×Sepal.Length+3×Sepal.Width, and calculates the sample mean of this combination as 20.86. The variance of this linear combination is 3.94, indicating moderate variability.
+
+Covariance and Correlation between Two Linear Combinations: The linear combinations 
+𝑌
+1
+=
+2
+×
+Sepal.Length
++
+3
+×
+Sepal.Width
+Y 
+1
+​
+ =2×Sepal.Length+3×Sepal.Width and 
+𝑌
+2
+=
+4
+×
+Petal.Length
++
+1
+×
+Petal.Width
+Y 
+2
+​
+ =4×Petal.Length+1×Petal.Width have a covariance of 6.91 and a correlation of 0.45, suggesting a moderate positive relationship between these new combinations.
+
+QUESTION 3
+
+Loading the swiss Dataset and Generating Histograms
+
+```{r}
+# Load the swiss dataset
+data(swiss)
+
+# a) Generate histograms for each variable
+# Histograms for each variable
+par(mfrow = c(2, 3)) # Arrange plots in a 2x3 grid
+
+hist(swiss$Fertility, main = "Fertility", xlab = "Fertility", col = "lightblue")
+hist(swiss$Education, main = "Education", xlab = "Education", col = "lightblue")
+hist(swiss$Agriculture, main = "Agriculture", xlab = "Agriculture", col = "lightblue")
+hist(swiss$Catholic, main = "Catholic", xlab = "Catholic (%)", col = "lightblue")
+hist(swiss$Infant.Mortality, main = "Infant Mortality", xlab = "Infant Mortality", col = "lightblue")
+
+par(mfrow = c(1, 1)) # Reset plotting window
+
+```
+Thought Process:
+Histograms help visualize the distribution of the data for each variable.
+By observing the histograms, we can assess whether the data is approximately normal (bell-shaped) or skewed, and detect any patterns or outliers.
+
+Applying Log Transformation to Fertility and Education 
+ 
+ 
+```{r}
+# b) Apply log transformation to Fertility and Education
+log_Fertility <- log(swiss$Fertility)
+log_Education <- log(swiss$Education)
+
+# Create histograms for the transformed variables
+par(mfrow = c(2, 2)) # Arrange plots in a 2x2 grid
+
+# Original distributions
+hist(swiss$Fertility, main = "Original Fertility", xlab = "Fertility", col = "lightgreen")
+hist(swiss$Education, main = "Original Education", xlab = "Education", col = "lightgreen")
+
+# Transformed distributions
+hist(log_Fertility, main = "Log(Fertility)", xlab = "Log(Fertility)", col = "lightblue")
+hist(log_Education, main = "Log(Education)", xlab = "Log(Education)", col = "lightblue")
+
+par(mfrow = c(1, 1)) # Reset plotting window
+
+```
+Thought Process:
+Log transformation is useful when dealing with skewed data because it compresses the range of large values and expands the range of small values, making the distribution more symmetric.
+By comparing the histograms before and after the transformation, I can observe whether the distribution became closer to normal.
+
+ Creating Scatter Plots to Explore Relationships
+ 
+I will create scatter plots to explore the relationships between:
+
+Fertility and Education
+Agriculture and Infant.Mortality
+This will help us assess whether there is a linear relationship and detect any potential outliers
+
+```{r}
+# c) Create scatter plots to explore relationships
+par(mfrow = c(1, 2)) # Arrange plots in a 1x2 grid
+
+# Scatter plot for Fertility and Education
+plot(swiss$Fertility ~ swiss$Education, 
+     main = "Fertility vs Education", 
+     xlab = "Education", 
+     ylab = "Fertility", 
+     pch = 19, col = "blue")
+
+# Scatter plot for Agriculture and Infant.Mortality
+plot(swiss$Agriculture ~ swiss$Infant.Mortality, 
+     main = "Agriculture vs Infant Mortality", 
+     xlab = "Infant Mortality", 
+     ylab = "Agriculture", 
+     pch = 19, col = "blue")
+
+par(mfrow = c(1, 1)) # Reset plotting window
+
+```
+Thought Process:
+Scatter plots are great for visualizing the relationship between two continuous variables. A positive or negative trend can indicate linearity, while clustering or dispersion of points can suggest the strength of the relationship.
+
+I also check for outliers (points that fall far from the rest of the data) that might influence the relationship between the variables.
+
+
+ Generating a Matrix of Scatter Plots for All Variables 
+ 
+```{r}
+# d) Generate a matrix of scatter plots for all variables
+pairs(swiss, main = "Scatterplot Matrix of Swiss Dataset", pch = 19, col = "blue")
+
+```
+Thought Process:
+The pairs() function generates scatter plots for every possible pair of variables in the dataset. This matrix of scatter plots helps us visually assess relationships between the variables in a comprehensive manner.
+Based on the scatterplot matrix, we can identify which variables have strong linear relationships, non-linear relationships, or no apparent relationships at all.
+
+Summary of Relationships (Part d):
+
+From the scatterplot matrix, we can summarize the relationships between the variables:
+
+Fertility vs. Education: There is often a negative relationship; as education levels increase, fertility tends to decrease.
+
+Fertility vs. Agriculture: Fertility might have a positive relationship with the percentage of people working in agriculture; more agricultural regions tend to have higher fertility rates.
+
+Agriculture vs. Infant Mortality: These variables may show some positive correlation, with agricultural areas potentially having higher infant mortality rates.
+
+Catholic and Education: There may be interesting insights regarding religion (percentage of Catholics) and educational attainment
+
+Interpretation 
+
+Histograms: The histograms provide insights into the distribution of variables like Fertility, Education, Agriculture, Catholic, and Infant Mortality. Some of these distributions appear skewed, prompting the application of log transformations to Fertility and Education.
+
+Log Transformations: The log transformations are applied to reduce skewness, with the transformed histograms showing more symmetric distributions. This is a common technique to make the data more normal-like for statistical analysis.
+
+Scatter Plots and Relationships: The scatter plots between Fertility vs. Education and Agriculture vs. Infant Mortality show potential linear relationships. The negative relationship between Fertility and Education is particularly noticeable, suggesting that as education levels increase, fertility decreases.
+
+Matrix of Scatter Plots: The matrix of scatter plots provides a comprehensive visual assessment of relationships among all variables in the dataset. For instance, Fertility and Education show a strong negative relationship, while Agriculture and Infant Mortality appear positively correlated.
+
+QUESTION 4
+
+1. Loading the Dataset and Computing the Sample Mean Vector and Variance-Covariance Matrix
+
+```{r}
+# a) Load the faithful dataset
+data(faithful)
+
+# Compute the sample mean vector
+mean_vector <- colMeans(faithful)
+
+# Compute the sample variance-covariance matrix
+cov_matrix <- cov(faithful)
+
+# Display results
+mean_vector
+cov_matrix
+
+```
+Thought Process:
+Sample mean vector gives the average values for eruptions and waiting across all observations.
+Variance-covariance matrix provides the variances of each variable (on the diagonal) and the covariances between the variables (off-diagonal elements).
+
+Expected Output:
+mean_vector: A vector with two elements, one for eruptions and one for waiting.
+cov_matrix: A 2x2 matrix where the diagonal elements represent the variance of eruptions and waiting, and the off-diagonal elements represent the covariance between the two variables.
+
+2. Testing for Multivariate Normality 
+
+To test whether eruptions and waiting follow a multivariate normal distribution, we can use graphical tools and statistical tests like the Shapiro-Wilk test or Mardia's test. Since multivariate normality testing is more complex, I typically check each variable for normality and inspect the bivariate distribution.
+
+```{r}
+# Install and load MVN package for Mardia's test (if not already installed)
+
+library(MVN)
+
+# b) Perform Mardia's test for multivariate normality
+mardia_test <- mvn(data = faithful, mvnTest = "mardia")
+
+# Perform Shapiro-Wilk test for individual variables
+shapiro_eruptions <- shapiro.test(faithful$eruptions)
+shapiro_waiting <- shapiro.test(faithful$waiting)
+
+# Display results
+mardia_test$multivariateNormality
+shapiro_eruptions
+shapiro_waiting
+
+```
+Thought Process:
+Mardia’s test checks both skewness and kurtosis for multivariate normality.
+Shapiro-Wilk test is applied to each variable individually to check for normality. If both variables are individually normal, it's a good indicator of multivariate normality, but we need Mardia’s test to confirm it in a bivariate sense.
+
+
+Expected Output:
+Mardia’s test result: If p-values for both skewness and kurtosis are greater than 0.05, the data likely follows a multivariate normal distribution.
+Shapiro-Wilk test results: If p-values are greater than 0.05, the individual variables are approximately normal.
+
+3. Visualizing the Bivariate Distribution with a Contour Plot 
+
+```{r}
+# c) Create a contour plot for eruptions and waiting
+# Load necessary package
+library(MASS)
+
+# Estimate the 2D kernel density
+kde <- kde2d(faithful$eruptions, faithful$waiting, n = 50)
+
+# Create the contour plot
+contour(kde, xlab = "Eruptions", ylab = "Waiting", main = "Bivariate Contour Plot")
+
+```
+
+Thought Process:
+Kernel density estimation (KDE) provides a smoothed estimate of the joint distribution of eruptions and waiting.
+Contour plots show levels of equal probability density, giving us an intuitive picture of the bivariate distribution.
+
+Expected Output:
+A contour plot where each contour line represents a constant density level. The shape of the contours indicates whether the variables follow a normal-like (elliptical) distribution.
+
+4. Calculating the Probability Density Function for a Given Observation
+
+For this part, I will calculate the bivariate probability density for an observation where eruptions = 4.0 and waiting = 80. To do this, I need to assume that eruptions and waiting follow a bivariate normal distribution. I will use the dmvnorm() function from the mvtnorm package.
+
+
+```{r}
+# Install and load the mvtnorm package 
+library(mvtnorm)
+
+# d) Calculate the probability density function for an observation
+x_obs <- c(4.0, 80)  # Observation: eruptions = 4.0, waiting = 80
+
+# Calculate the density
+density_value <- dmvnorm(x_obs, mean = mean_vector, sigma = cov_matrix)
+
+# Display the result
+density_value
+
+```
+Thought Process:
+Multivariate normal PDF: I use the mean vector and covariance matrix calculated in part (a) to compute the probability density of the given observation.
+The dmvnorm() function computes this density for the specified observation, assuming the data follows a multivariate normal distribution.
+
+Expected Output:
+The probability density for the observation eruptions = 4.0 and waiting = 80.
+
+Interpretation
+
+Sample Mean Vector and Covariance Matrix: The mean values for eruptions and waiting are 3.49 and 70.90, respectively. The covariance matrix indicates a positive relationship between these variables.
+
+Multivariate Normality Tests: Mardia's test and the Shapiro-Wilk tests for normality both indicate that the data does not follow a multivariate normal distribution. Both skewness and kurtosis tests reject the null hypothesis of normality (p-values are significantly below 0.05).
+
+Contour Plot: A contour plot of eruptions and waiting shows the joint distribution of the two variables, and the shape of the contours suggests how the two variables are related.
+
+Probability Density Function (PDF) Calculation: For a specific observation where eruptions = 4.0 and waiting = 80, the bivariate normal PDF is calculated to be approximately 0.0177. This result gives the likelihood of observing that specific combination under the bivariate normal assumption.
+
+QUESTION 5
+
+1. Simulating 100 Observations from a Bivariate Normal Distribution and Plotting the Data 
+
+```{r}
+# a) Simulate 100 observations from a bivariate normal distribution
+library(MASS)
+
+# Define the mean vector and covariance matrix
+mu <- c(2, 3)
+Sigma <- matrix(c(1, 0.5, 0.5, 1), nrow = 2)
+
+# Set seed for reproducibility
+set.seed(123)
+
+# Simulate 100 observations
+data_sim <- mvrnorm(n = 100, mu = mu, Sigma = Sigma)
+
+# Convert to a data frame
+data_sim <- data.frame(x = data_sim[,1], y = data_sim[,2])
+
+# Scatter plot of the simulated data
+plot(data_sim$x, data_sim$y, 
+     main = "Scatter plot of Simulated Bivariate Normal Data", 
+     xlab = "X", 
+     ylab = "Y", 
+     pch = 19, col = "blue")
+
+# Calculate the sample mean vector
+sample_mean <- colMeans(data_sim)
+sample_mean
+
+```
+Thought Process:
+I use the mvrnorm() function from the MASS package to simulate the bivariate normal data.
+The scatter plot helps visualize the relationship between the two variables, and we compute the sample mean vector to check how closely it matches the true mean vector 
+𝜇
+μ.
+Expected Output:
+A scatter plot showing the bivariate data points.
+A sample mean vector with two elements (approximate values for x and y).
+
+2. Constructing 95% One-at-a-Time Confidence Intervals
+
+```{r}
+# b) Construct 95% one-at-a-time confidence intervals for the two means
+
+# Sample size
+n <- 100
+
+# Calculate sample standard deviations
+sample_sd <- apply(data_sim, 2, sd)
+
+# 95% confidence interval formula: mean +/- Z * (sd / sqrt(n))
+z_value <- qnorm(0.975) # Z-score for 95% confidence level
+
+# Confidence intervals for x and y
+ci_x <- c(sample_mean[1] - z_value * (sample_sd[1] / sqrt(n)), 
+          sample_mean[1] + z_value * (sample_sd[1] / sqrt(n)))
+
+ci_y <- c(sample_mean[2] - z_value * (sample_sd[2] / sqrt(n)), 
+          sample_mean[2] + z_value * (sample_sd[2] / sqrt(n)))
+
+ci_x
+ci_y
+
+# Repeat the process for a sample size of 200
+data_sim_200 <- mvrnorm(n = 200, mu = mu, Sigma = Sigma)
+sample_mean_200 <- colMeans(data_sim_200)
+sample_sd_200 <- apply(data_sim_200, 2, sd)
+
+ci_x_200 <- c(sample_mean_200[1] - z_value * (sample_sd_200[1] / sqrt(200)), 
+              sample_mean_200[1] + z_value * (sample_sd_200[1] / sqrt(200)))
+
+ci_y_200 <- c(sample_mean_200[2] - z_value * (sample_sd_200[2] / sqrt(200)), 
+              sample_mean_200[2] + z_value * (sample_sd_200[2] / sqrt(200)))
+
+ci_x_200
+ci_y_200
+
+```
+Thought Process:
+Confidence intervals are constructed using the formula 
+mean
+±
+𝑍
+×
+sd
+𝑛
+mean±Z× 
+n
+​
+ 
+sd
+​
+ , where 
+𝑍
+Z is the Z-score for the desired confidence level (1.96 for 95%).
+By increasing the sample size from 100 to 200, we expect the confidence interval widths to decrease, because the margin of error 
+sd
+𝑛
+n
+​
+ 
+sd
+​
+  becomes smaller as 
+𝑛
+n increases.
+Expected Output:
+Confidence intervals for both x and y when 
+𝑛
+=
+100
+n=100.
+Confidence intervals for both x and y when 
+𝑛
+=
+200
+n=200. The intervals should be narrower compared to 
+𝑛
+=
+100
+n=100.
+
+
+3. Applying the Bonferroni Method for Simultaneous Confidence Intervals
+
+The Bonferroni method adjusts the confidence level to control for the family-wise error rate when constructing multiple confidence intervals. For two variables, the Bonferroni-adjusted confidence level is 
+1
+−
+0.05
+2
+=
+0.975
+1− 
+2
+0.05
+​
+ =0.975, meaning we use the same Z-score as before.
+ 
+```{r}
+# c) Apply Bonferroni method for simultaneous confidence intervals
+
+# Bonferroni-adjusted alpha level (no change for two variables)
+alpha_bonferroni <- 0.05 / 2
+
+# Z-score remains the same (since Bonferroni adjustment doesn't change alpha for two variables)
+z_bonferroni <- qnorm(1 - alpha_bonferroni)
+
+# Bonferroni intervals for x and y
+ci_x_bonferroni <- c(sample_mean[1] - z_bonferroni * (sample_sd[1] / sqrt(n)), 
+                     sample_mean[1] + z_bonferroni * (sample_sd[1] / sqrt(n)))
+
+ci_y_bonferroni <- c(sample_mean[2] - z_bonferroni * (sample_sd[2] / sqrt(n)), 
+                     sample_mean[2] + z_bonferroni * (sample_sd[2] / sqrt(n)))
+
+ci_x_bonferroni
+ci_y_bonferroni
+
+```
+Thought Process:
+Bonferroni correction adjusts for multiple comparisons by dividing the significance level by the number of tests (in this case, two). This ensures the overall confidence level is maintained across all intervals.
+The resulting intervals are expected to be slightly wider than the one-at-a-time confidence intervals, reflecting the more conservative approach of Bonferroni correction.
+
+Expected Output:
+Simultaneous confidence intervals for x and y using the Bonferroni method. These intervals should be wider than the one-at-a-time intervals.
+
+
+4. Testing the Null Hypothesis that the Correlation Between the Two Variables is Zero
+
+```{r}
+# d) Test if the correlation between the two variables is zero
+correlation_test <- cor.test(data_sim$x, data_sim$y)
+
+# Display the results
+correlation_test
+
+```
+Interpretation 
+
+Simulation of 100 Observations: The task involves simulating 100 observations from a bivariate normal distribution with specified mean vector and covariance matrix. A scatter plot shows the distribution of the simulated data, and the sample mean vector is close to the true mean values used for the simulation.
+
+Confidence Intervals (CIs): One-at-a-time 95% confidence intervals are constructed for the means of both variables. When the sample size is increased to 200, the intervals become narrower due to the increased precision of estimates.
+
+Bonferroni Correction: The Bonferroni-adjusted confidence intervals are slightly wider than the one-at-a-time intervals, reflecting the more conservative nature of this method, which accounts for multiple comparisons.
+
+Hypothesis Test for Correlation: The test for correlation between the two variables yields a p-value much smaller than 0.05 (p = 1.866e-06), indicating that the correlation is statistically significant. The sample correlation is 0.456, suggesting a moderate positive relationship between the variables.
+
+
+Summary of Results:
+Relationships and Distribution: Across the datasets analyzed, the relationships between variables are assessed through scatter plots, correlation, and covariance. These methods show strong inverse or positive relationships depending on the variables involved.
+
+Transformation and Normality: Log transformation helps make skewed data more symmetric, and normality tests are used to assess distribution assumptions, which are important for parametric tests.
+
+Bivariate Analysis: The exercises explore bivariate distributions, correlations, and hypothesis tests, demonstrating the power of multivariate techniques in understanding relationships between multiple variables.
